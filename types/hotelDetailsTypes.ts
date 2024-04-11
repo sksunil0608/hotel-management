@@ -1,7 +1,7 @@
 export class HotelInfoDetails {
     hotelName: string = "";
     hotelEmailId: string = "";
-    hotelContactNumber: number = 0;
+    hotelContactNumber: string = "";
     hotelLandmark: string = "";
     hotelAddress: string = "";
     hotelStartingPrice: number = 0;

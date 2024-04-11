@@ -1,77 +1,28 @@
-import * as Yup from 'yup';
-import {
-    hotelInfo,
-    slugInfo,
-    paymentInfo,
-    imageInfo,
-} from "@/lib/hotelFormConstants";
+import * as Yup from "yup";
+import { HotelInfoDetails } from "@/types/hotelDetailsTypes";
 
-// Define a function to build validation schema based on field configurations
-export const hotelValidationSchema = () => {
-    const schema: { [key: string]: any } = {};
+// Validation schema using Yup
+export const hotelValidationSchema = Yup.object().shape({
+    hotelName: Yup.string().required("Hotel Name is required"),
+    hotelEmailId: Yup.string().email("Invalid email").required("Email is required"),
+    hotelContactNumber: Yup.string()
+        .matches(/^\+?\d{10,12}$/, "Invalid phone number") // Example regex for 10-12 digit phone number
+        .required("Phone number is required"),
+    hotelLandmark: Yup.string().required("Landmark is required"),
+    hotelAddress: Yup.string().required("Address is required"),
+    hotelStartingPrice: Yup.number().required("Starting price is required"),
+    hotelDescription: Yup.string().required("Description is required"),
+    hotelStarRating: Yup.number().required("Star rating is required"),
+    hotelImageUrl: Yup.string().required("Image URL is required"),
+    hotelState: Yup.string().required("State is required"),
+    hotelCity: Yup.string().required("City is required"),
+    hotelCountry: Yup.string().required("Country is required"),
+    hotelRegion: Yup.string().required("Region is required"),
+    hotelPincode: Yup.string().required("Pincode is required"),
+    hotelLatitude: Yup.number().required("Latitude is required"),
+    hotelLongitude: Yup.number().required("Longitude is required"),
+    hotelMapUrl: Yup.string().required("Map URL is required"),
+});
 
-    // Add validation rules for hotelInfo fields
-    hotelInfo.forEach((field) => {
-        let fieldSchema = Yup.string(); // Default to string validation
-
-        if (field.type === 'email') {
-            fieldSchema = fieldSchema.email('Invalid email format');
-        } else if (field.type === 'number') {
-            fieldSchema = fieldSchema
-                .typeError(`${field.label} must be a valid number`)
-                .test('is-number', `${field.label} must be a number`, (value: any) => {
-                    return /^\d+$/.test(value); // Check if value is a valid number
-                });
-        }
-
-        if (field.required) {
-            fieldSchema = fieldSchema.required(`${field.label} is required`);
-        }
-
-        schema[field.name] = fieldSchema;
-    });
-
-    // Add validation rules for slugInfo fields
-    slugInfo.forEach((field) => {
-        schema[field.name] = Yup.string().required(`${field.label} is required`);
-    });
-
-    // Add validation rules for paymentInfo fields
-    paymentInfo.forEach((field) => {
-        schema[field.name] = Yup.string().required(`${field.label} is required`);
-    });
-
-    // Add validation rules for imageInfo fields
-    imageInfo.forEach((field) => {
-        schema[field.name] = Yup.string().required(`${field.label} is required`);
-    });
-
-    return Yup.object().shape(schema);
-};
-
-// Define a function to build initial values object
-export const hotelInitialValues = () => {
-    const initialValues: { [key: string]: any } = {};
-
-    // Populate initial values for hotelInfo fields
-    hotelInfo.forEach((field) => {
-        initialValues[field.name] = field.value || '';
-    });
-
-    // Populate initial values for slugInfo fields
-    slugInfo.forEach((field) => {
-        initialValues[field.name] = field.value || '';
-    });
-
-    // Populate initial values for paymentInfo fields
-    paymentInfo.forEach((field) => {
-        initialValues[field.name] = field.value || '';
-    });
-
-    // Populate initial values for imageInfo fields
-    imageInfo.forEach((field) => {
-        initialValues[field.name] = field.value || '';
-    });
-
-    return initialValues;
-};
+// Initial form values using class instance
+export const hotelInitialValues = new HotelInfoDetails();
