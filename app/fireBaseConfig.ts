@@ -6,13 +6,14 @@ import { getFirestore } from "firebase/firestore";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyCXvTjYag9SZQaHmpQEjVANFFeBVPNcPg8",
-  authDomain: "hotel-management-2496b.firebaseapp.com",
-  projectId: "hotel-management-2496b",
-  storageBucket: "hotel-management-2496b.appspot.com",
-  messagingSenderId: "912757257701",
-  appId: "1:912757257701:web:c416c1929fba7469ca2b0c"
+  apiKey: "AIzaSyC64lE0SSyxFYQSfEirs8q339hzjrz0VDc",
+  authDomain: "hmgmt-76d39.firebaseapp.com",
+  projectId: "hmgmt-76d39",
+  storageBucket: "hmgmt-76d39.appspot.com",
+  messagingSenderId: "594222826138",
+  appId: "1:594222826138:web:87adad73e0202077d25523"
 };
+
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);

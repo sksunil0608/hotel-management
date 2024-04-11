@@ -4,8 +4,13 @@ const Header = () => {
   return (
     <div className="header">
       <div>Logo</div>
-      <div>
-        <Link href="#">Home</Link>
+      <div className="text-white">
+        <Link href="/" className="ml-2">
+          Home
+        </Link>
+        <Link href="/hotels" className="ml-2">
+          Hotels
+        </Link>
       </div>
     </div>
   );
