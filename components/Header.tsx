@@ -1,15 +1,24 @@
 import React from "react";
 import Link from "next/link";
+
 const Header = () => {
   return (
     <div className="header">
       <div>Logo</div>
       <div className="text-white">
-        <Link href="/" className="ml-2">
+        <Link
+          href={{
+            pathname: "/",
+          }}
+        >
           Home
         </Link>
-        <Link href="/hotels" className="ml-2">
-          Hotels
+        <Link
+          href={{
+            pathname: "/hotels",
+          }}
+        >
+          Blog Post
         </Link>
       </div>
     </div>

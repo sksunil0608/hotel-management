@@ -34,6 +34,7 @@ const HotelForm = () => {
       // Call addHotelToFirestore with updated values
       await addHotelToFirestore(updatedValues);
       console.log("Hotel data submitted successfully!");
+      formik.resetForm();
     } catch (error) {
       console.error("Error submitting hotel data:", error);
       // Handle error (e.g., show error message)
