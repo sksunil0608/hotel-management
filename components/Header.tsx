@@ -10,6 +10,7 @@ const Header = () => {
           href={{
             pathname: "/",
           }}
+          className="mr-2"
         >
           Home
         </Link>
@@ -18,7 +19,7 @@ const Header = () => {
             pathname: "/hotels",
           }}
         >
-          Blog Post
+          Hotels
         </Link>
       </div>
     </div>

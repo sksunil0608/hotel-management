@@ -2,14 +2,53 @@
 import React, { useEffect, useState } from "react";
 import { fetchHotelsFromFirestore } from "../api/hotelApi";
 import Link from "next/link";
+import { HotelInfoDetails } from "@/types/hotelDetailsTypes";
 const Hotels: React.FC = () => {
-  const [hotels, setHotels] = useState([]);
+  const [hotels, setHotels] = useState<HotelInfoDetails[]>([]);
 
   useEffect(() => {
     const fetchHotels = async () => {
       try {
-        const fetchedHotels = await fetchHotelsFromFirestore();
-        setHotels(fetchedHotels);
+        const fetchedHotelsData = await fetchHotelsFromFirestore(); // Fetch data from Firestore
+
+        // Map fetched data to HotelInfoDetails objects
+        const fetchedHotels: HotelInfoDetails[] = fetchedHotelsData.map(
+          (data: any) => ({
+            id: data.hotelName,
+            hotelName: data.hotelName,
+            hotelEmailId: data.hotelEmailId,
+            hotelContactNumber: data.hotelContactNumber,
+            hotelLandmark: data.hotelLandmark,
+            hotelAddress: data.hotelAddress,
+            hotelStartingPrice: data.hotelStartingPrice,
+            hotelDescription: data.hotelDescription,
+            hotelStarRating: data.hotelStarRating,
+            hotelImageUrl: data.hotelImageUrl,
+            hotelState: data.hotelState,
+            hotelCity: data.hotelCity,
+            hotelCountry: data.hotelCountry,
+            hotelRegion: data.hotelRegion,
+            hotelPincode: data.hotelPincode,
+            hotelSlugsDetails: {
+              hotel: data.hotelName,
+              hotelCity: data.hotelCity,
+              hotelRegion: data.hotelRegion,
+              hotelState: data.hotelState,
+              hotelCountry: data.hotelCountry,
+            },
+            hotelLongitude: data.hotelLongitude,
+            hotelLatitude: data.hotelLatitude,
+            hotelMapUrl: data.hotelMapUrl,
+            hotelPaymentOption: {
+              postpaidPayment: data.postpaidPayment,
+              prepaidPayment: data.prepaidPayment,
+              partialPayment: data.partialPayment,
+            },
+            hotelImagesList: [], // Initialize empty array for images
+          })
+        );
+
+        setHotels(fetchedHotels); // Set state with the mapped HotelInfoDetails array
       } catch (error) {
         console.error("Error fetching hotels:", error);
       }
@@ -23,7 +62,10 @@ const Hotels: React.FC = () => {
       <h1 className="text-3xl font-bold mb-4">Hotels</h1>
       <div className=" grid grid-cols-1 lg:max-w-3xl lg:mx-auto">
         {hotels.map((hotel) => (
-          <Link href={`hotels/${hotel.id}`} key={hotel.hotelName}>
+          <Link
+            href={`/hotels/${encodeURIComponent(hotel.hotelName)}`}
+            key={hotel.hotelName}
+          >
             <div className="bg-white shadow-md rounded-lg overflow-hidden my-10">
               <img
                 src={hotel.hotelImageUrl}
